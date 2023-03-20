@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\codigocompu;
 use App\Http\Controllers\Controller;
+use App\Models\codes;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Cookie;
@@ -28,20 +29,20 @@ class CodigocompuController extends Controller
     {
         $code_mobil = $request->codigo;
 
-        $codes = codigocompu::where('active', true)->get();
+        $codes = codes::where('activo', true)->get();
 
         foreach ($codes as $code) {
             if (Hash::check($code_mobil, $code->codigo)) {
 
-                $code->active = false;
+                $code->activo = false;
 
                 $code->save();
 
                 $num = random_int(100000, 999999);
 
-                codigocompu::create([
+                codes::create([
                     'codigo' => Hash::make($num),
-                    'active' => true,
+                    'activo' => true,
                     'user_id' => $code->user_id,
                 ]);
 
@@ -55,12 +56,12 @@ class CodigocompuController extends Controller
     {
         $code_web = $request->code;
 
-        $codes = codigocompu::where('active', true)->get();
+        $codes = codes::where('activo', true)->get();
 
         foreach ($codes as $code) {
             if (Hash::check($code_web, $code->codigo)) {
 
-                $code->active = false;
+                $code->activo = false;
 
                 $code->save();
 

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\codes;
 use App\Models\codigocompu;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -29,9 +30,9 @@ class ValidarCodigo extends Controller
 
         $user = Auth::user();
 
-        $code = codigocompu::create([
+        $code = codes::create([
             'codigo' => Hash::make($num),
-            'active' => true,
+            'activo' => true,
             'user_id' => $user->id,
         ]);
 

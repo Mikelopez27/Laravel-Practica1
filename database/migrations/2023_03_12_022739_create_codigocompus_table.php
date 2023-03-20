@@ -11,13 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('codigocompus', function (Blueprint $table) {
+        Schema::create('codes', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id');
             $table->string('codigo');
-            $table->boolean('active')->default(true);
+            $table->boolean('activo')->default(true);
+            $table->integer('user_id')->references('id')->on('users');
             $table->timestamps();
-            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 
@@ -26,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('codigocompus');
+        Schema::dropIfExists('codes');
     }
 };
